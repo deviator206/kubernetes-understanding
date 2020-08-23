@@ -1,0 +1,14 @@
+apiVersion: v1
+metadata:
+  name: deviator-app
+  labels:
+    app: simple-deviator-app
+kind: Pod
+spec:
+  containers:
+    - name: deviator-app-container
+      image: dev02
+      imagePullPolicy: Never
+      ports:
+            - containerPort: 80
+              protocol: TCP
