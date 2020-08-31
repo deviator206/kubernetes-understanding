@@ -10,6 +10,12 @@ Basic understanding and initial findings for kubernetes
 
 
 
+### References
+[ CheatSheet - Fabric Client ](https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md#configmap)
+
+
+
+
 
 
 
