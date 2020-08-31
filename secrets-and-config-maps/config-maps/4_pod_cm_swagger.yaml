@@ -1,0 +1,20 @@
+apiVersion: v1
+metadata:
+  name: 4-pod
+kind: Pod
+spec:
+  volumes:
+    - name: demo-with-swagger
+      configMap:
+          name: my-some-cm-2
+  containers:
+    - name: 4-pod-container
+      image: dev02
+      imagePullPolicy: Never
+      ports:
+            - containerPort: 80
+              protocol: TCP
+      volumeMounts:
+      - name: demo-with-swagger
+        mountPath: /deviator/my-data
+      

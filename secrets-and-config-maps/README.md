@@ -52,4 +52,64 @@ volumeMounts:
 
  # ConfigMaps
  Similar to secrets, only change in ConfigMap
+
+
+ # Pod reading Predefined configMap
+ This is simple REST endpoint which on invocation will read content from ConfigMap
+ ## Reading configMap
+ Below endpoint has the code for reading from CM
+ <code>/getcm </code> 
+ > First need the k8ClientInstance 
+ <pre> 
+  try (KubernetesClient client = new DefaultKubernetesClient()) { 
+    ....
+  } catch (KubernetesClientException ex) {
+    ...
+  }
+ </pre>
+ > Get  from the env
+ <pre>
+ ConfigMap swaggerCfgData = client.configMaps();
+ </pre>
+ >Get Specific CM
+ <pre>
+  ConfigMap swaggerCfgData = client.configMaps().withName("my-some-cm-2").get();
+ </pre>
+ >Iterate over the data 
+ <pre>
+  Map<String, String> swaggerInfo = swaggerCfgData.getData();
+  Iterator<Map.Entry<String, String>> iterator = textInfo.entrySet().iterator();
+  while (iterator.hasNext()) {
+     Map.Entry<String, String> entry = iterator.next();
+   System.out.println(entry.getKey() + ":" + entry.getValue());
+  }
+ </pre>
+
+ >Watch the changes over CMs - Action & ConfigMap:
+ Action:  [  ADDED, MODIFIED, DELETED, ERROR]
+ ConfigMap: CM which is being impacted
+ <pre>
+ static KubernetesClient k8Client = new DefaultKubernetesClient();
+ 
+ k8Client.configMaps().watch(new Watcher<ConfigMap>() {
+  @Override
+  public void eventReceived(Action action, ConfigMap resource)
+  {...}
+
+  @Override
+  public void onClose(KubernetesClientException cause) 
+  {...}
+ }
+ </pre>
+
+> Deploy the changes via image
+
+> Post which after the POD is up make changes in ConfigMap, casue of which below event would be triggered
+
+> Sample of the action, resource - onEventReceived
+
+<pre>
+ ACTION :: MODIFIED
+ resource :: {NEW_CHANGE=dummy, app=also if secret is }
+</pre>
  

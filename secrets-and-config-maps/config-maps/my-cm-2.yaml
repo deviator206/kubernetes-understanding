@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-some-cm-2
+data: 
+  my.cnf: |
+    swagger: "2.0"
+    info:
+      description: "This is a sample server Petstore server.  You can find out more about     Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters."
+      version: "1.0.0"
+      title: "Swagger Petstore"
+      termsOfService: "http://swagger.io/terms/"
+      contact:
+        email: "apiteam@swagger.io"
+      license:
+        name: "Apache 2.0"
+        url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+    host: "petstore.swagger.io"
+    basePath: "/v2"
+    tags:
+    - name: "pet"
+      description: "Everything about your Pets"
+      externalDocs:
+        description: "Find out more"
+        url: "http://swagger.io"
+    - name: "store"
+      description: "Access to Petstore orders"
+    - name: "user"
+      description: "Operations about user"
+      externalDocs:
+        description: "Find out more about our store"
+        url: "http://swagger.io"
+    schemes:
+    - "https"
+    - "http"
+    paths:
+      /user/login:
+        get:
+          tags:
+          - "user"
+          summary: "Logs user into the system"
+          description: ""
+          operationId: "loginUser"
+          produces:
+          - "application/xml"
+          - "application/json"
+          parameters:
+          - name: "username"
+            in: "query"
+            description: "The user name for login"
+            required: true
+            type: "string"
+          - name: "password"
+            in: "query"
+            description: "The password for login in clear text"
+            required: true
+            type: "string"
+          responses:
+            200:
+              description: "successful operation"
+              schema:
+                type: "string"
+              headers:
+                X-Rate-Limit:
+                  type: "integer"
+                  format: "int32"
+                  description: "calls per hour allowed by the user"
+                X-Expires-After:
+                  type: "string"
+                  format: "date-time"
+                  description: "date in UTC when token expires"
+            400:
+              description: "Invalid username/password supplied"
+    externalDocs:
+      description: "Find out more about Swagger"
+      url: "http://swagger.io"

@@ -1,0 +1,14 @@
+apiVersion: v1
+metadata:
+  name: rest-app
+  labels:
+    app: web-rest-app
+kind: Pod
+spec:
+  containers:
+    - name: rest-container
+      image: dev03
+      imagePullPolicy: Never
+      ports:
+            - containerPort: 80
+              protocol: TCP
