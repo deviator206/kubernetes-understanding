@@ -1,7 +1,7 @@
 package deviator.rest.api;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.Iterator;
 
 import org.springframework.boot.SpringApplication;
@@ -37,10 +37,8 @@ public class App {
             ConfigMap cfgData = client.configMaps().withName("game-config-env-file").get();
             Map<String, String> hmInfo = cfgData.getData();
             System.out.println(" CONTENT :: "+hmInfo.get("enemies"));
-            // client.configMaps().withName("game-config-env-file").createOrReplace()
-        
+       
         } catch (KubernetesClientException ex) {
-            // Handle exception
             ex.printStackTrace();
         }
         return "Hello Docker World 2222";
@@ -78,6 +76,32 @@ public class App {
         }
         
     }
+    
+    
+    @RequestMapping("/createcm")
+    public String createCM() {
+    	
+    	Random random = new Random();
+    	int keySuffix = random.nextInt(898);
+    	ConfigMap configMap = k8Client.configMaps().inNamespace("default").createOrReplaceWithNew()
+    		      .withNewMetadata().withName("dynamic-created-01").endMetadata()
+    		      .addToData("1_"+String.valueOf(keySuffix), "one___"+random.nextInt(100))
+    		      .addToData("2_"+String.valueOf(keySuffix), "two__"+random.nextInt(200))
+    		      .addToData("3_"+String.valueOf(keySuffix), "three__"+random.nextInt(300))
+    		      .done();
+    	return configMap.getData().toString();
+    }
+    
+    
+    @RequestMapping("/updatecm")
+    public String updateCM() {
+    	Random random = new Random();
+    	int keySuffix = random.nextInt(898);
+    	ConfigMap configMap = k8Client.configMaps().inNamespace("default").withName("my-some-cm").edit()
+    		      .addToData("1_"+String.valueOf(keySuffix), "one___"+random.nextInt(100))
+    		      .done();
+    	return configMap.getData().toString();
+    }
 
     public static void main( String[] args )
     {
@@ -85,7 +109,7 @@ public class App {
 
         System.out.println( "App Initialized!!! Re" );
         
-        k8Client.configMaps().inNamespace(currentNameSpace).watch(new Watcher<ConfigMap>() {
+        k8Client.configMaps().inNamespace("default").watch(new Watcher<ConfigMap>() {
         	  @Override
         	  public void eventReceived(Action action, ConfigMap resource) {
         	    // Do something depending upon action type  

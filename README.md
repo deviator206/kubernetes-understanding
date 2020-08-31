@@ -10,6 +10,10 @@ Basic understanding and initial findings for kubernetes
 
 
 
+### Error Handling
+[ Basic Errors ](./secrets-and-config-maps/ErrorHandling.md)
+
+
 ### References
 [ CheatSheet - Fabric Client ](https://github.com/fabric8io/kubernetes-client/blob/master/doc/CHEATSHEET.md)
 
