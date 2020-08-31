@@ -6,7 +6,7 @@ Basic understanding and initial findings for kubernetes
 
 
 ## More about reading / writing / watching ConfigMap from a SpringBoot App 
-[More details about config Map](./secrets-and-config-maps/config-maps/README.md)
+[More details about config Map](./secrets-and-config-maps/README.md)
 
 
 
