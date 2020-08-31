@@ -1,0 +1,20 @@
+apiVersion: v1
+metadata:
+  name: 3-pod
+kind: Pod
+spec:
+  volumes:
+    - name: my-configmp
+      configMap:
+          name: my-some-cm
+  containers:
+    - name: 3-pod-container
+      image: dev02
+      imagePullPolicy: Never
+      ports:
+            - containerPort: 80
+              protocol: TCP
+      volumeMounts:
+      - name: my-configmp
+        mountPath: /deviator/my-data
+      

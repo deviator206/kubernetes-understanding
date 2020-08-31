@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-some-cm
+data: 
+  user: Some extra information
+  userName: Some USER NAME .....
+  keyName: Yalllaaaa!!! , asd ,asd, as2131312,3
+  channel.name: kuad
+  app:  also if secret is modified, just relogging into the pod terminal you would see
